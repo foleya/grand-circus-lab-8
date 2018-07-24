@@ -18,43 +18,47 @@ public class StudentDictionary {
 		int mainMenuChoice = 0;
 		int studentChoice = 0;
 		int subMenuChoice = 0;
+		
 		boolean loopStudentMenu = true;
 		boolean loopSubMenu = true;
 
-		// Student Menu Loop
-
+		// Display Main Menu
 		System.out.println("Welcome to our Java Class. What would you like to do?");
 		printOptions(mainMenuOptions);
 		mainMenuChoice = getValidMenuChoice(scnr, mainMenuOptions.length);
 
 		if (mainMenuChoice == 1) {
+			// Choice: Learn More About Students!
 			do {
-				// Learn More About Students
+				// Display Student Menu
 				System.out.println("Which student would you like to learn about?");
 				printOptions(students);
 				studentChoice = getValidMenuChoice(scnr, students.length);
 
 				do {
+					// Student has been chosen
+					// Display student sub menu
 					System.out.println("\nWhat would you like to know about " + students[studentChoice - 1] + "?");
-					// Display information menu and prompt for nav choice
 					printOptions(subMenuOptions);
 					subMenuChoice = getValidMenuChoice(scnr, subMenuOptions.length);
 
-					// TODO: Add method for fetching student information
 					if (subMenuChoice == 1) {
-						loopSubMenu = false;
+						// Choice: Go back to Student Menu
+						break;
 					}
-
 					else if (subMenuChoice == 2) {
+						// Choice: Reveal Student's Favorite Food
 						System.out.println(students[studentChoice - 1] + "'s favorite food is: "
 								+ favoriteFoods[studentChoice - 1] + "!");
 					} else if (subMenuChoice == 3) {
+						// Choice: Reveal Student's Hometown
 						System.out.println(
 								students[studentChoice - 1] + "'s hometown is: " + hometowns[studentChoice - 1] + "!");
 					} else {
+						// Choice: Quit the Program
 						loopSubMenu = false;
 						loopStudentMenu = false;
-						break;
+						break;	/* break out of this student menu loop */
 					}
 
 					System.out
@@ -67,10 +71,9 @@ public class StudentDictionary {
 
 			} while (loopStudentMenu);
 
-		} else {
-			// Exit Program
-			System.out.println("Goodbye!");
 		}
+		
+		System.out.println("\nOk! Goodbye!");
 
 		scnr.close();
 	}
