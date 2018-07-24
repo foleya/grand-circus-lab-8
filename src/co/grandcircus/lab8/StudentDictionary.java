@@ -12,37 +12,65 @@ public class StudentDictionary {
 		String[] favoriteFoods = { "A Sandwich", "Burger", "Carrots", "Dill Pickle", "Edamame", "Garbonzo Beans" };
 		String[] hometowns = { "Ann Arbor", "Birmingham", "Canton", "Detroit", "East Lansing", "Grand Rapids" };
 
-		String[] navOptions = { "Pick A Different Student", "Favorite Food", "Hometown", "Quit Program" };
+		String[] mainMenuOptions = { "Learn More About Students", "Quit Program" };
+		String[] subMenuOptions = { "Pick A Different Student", "Favorite Food", "Hometown", "Quit Program" };
 
+		int mainMenuChoice = 0;
 		int studentChoice = 0;
-		int navChoice = 0;
-		boolean quitProgram = false;
+		int subMenuChoice = 0;
+		boolean loopStudentMenu = true;
+		boolean loopSubMenu = true;
 
-		do {
-			// Prompt user to pick a student
-			System.out.println("Welcome to our Java Class. Which student would you like to learn about?");
-			printOptions(students);
-			studentChoice = getValidMenuChoice(scnr, students.length);
+		// Student Menu Loop
 
-			// Display information menu and prompt for nav choice
-			System.out.println("What would you like to know about " + students[studentChoice - 1] + "?");
-			printOptions(navOptions);
-			navChoice = getValidMenuChoice(scnr, navOptions.length);
+		System.out.println("Welcome to our Java Class. What would you like to do?");
+		printOptions(mainMenuOptions);
+		mainMenuChoice = getValidMenuChoice(scnr, mainMenuOptions.length);
 
-			// TODO: Add method for fetching student information
-			if (navOptions[navChoice - 1].equals("Pick a Different Student")) {
-				continue; // this is a hack
-			} else if (navOptions[navChoice - 1].equals("Favorite Food")) {
-				System.out.println(
-						students[studentChoice - 1] + "'s favorite food is: " + favoriteFoods[studentChoice - 1]);
-			} else if (navOptions[navChoice - 1].equals("Hometown")) {
-				System.out.println(
-						students[studentChoice - 1] + "'s hometown is: " + hometowns[studentChoice - 1]);
-			} else {
-				quitProgram = true;
-			}
+		if (mainMenuChoice == 1) {
+			do {
+				// Learn More About Students
+				System.out.println("Which student would you like to learn about?");
+				printOptions(students);
+				studentChoice = getValidMenuChoice(scnr, students.length);
 
-		} while (!quitProgram);
+				do {
+					System.out.println("\nWhat would you like to know about " + students[studentChoice - 1] + "?");
+					// Display information menu and prompt for nav choice
+					printOptions(subMenuOptions);
+					subMenuChoice = getValidMenuChoice(scnr, subMenuOptions.length);
+
+					// TODO: Add method for fetching student information
+					if (subMenuChoice == 1) {
+						loopSubMenu = false;
+					}
+
+					else if (subMenuChoice == 2) {
+						System.out.println(students[studentChoice - 1] + "'s favorite food is: "
+								+ favoriteFoods[studentChoice - 1] + "!");
+					} else if (subMenuChoice == 3) {
+						System.out.println(
+								students[studentChoice - 1] + "'s hometown is: " + hometowns[studentChoice - 1] + "!");
+					} else {
+						loopSubMenu = false;
+						loopStudentMenu = false;
+						break;
+					}
+
+					System.out
+							.println("Would you like to know more about " + students[studentChoice - 1] + "? (Y/n): ");
+					if (scnr.nextLine().trim().toLowerCase().equals("n")) {
+						loopSubMenu = false;
+					}
+
+				} while (loopSubMenu);
+
+			} while (loopStudentMenu);
+
+		} else {
+			// Exit Program
+			System.out.println("Goodbye!");
+		}
 
 		scnr.close();
 	}
@@ -67,19 +95,6 @@ public class StudentDictionary {
 		if (input < 1 || input > menuLength) {
 			throw new IllegalArgumentException();
 		}
-	}
-
-	private static int getStudentMenuChoice(String[] options) {
-		int navChoice = 0;
-
-		// print options for the user
-		printOptions(options);
-		return navChoice;
-
-		// retrieve String from navOptions array
-
-		// If/else block for performing action
-
 	}
 
 	private static void printOptions(String[] options) {
