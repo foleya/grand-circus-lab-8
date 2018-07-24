@@ -18,7 +18,7 @@ public class StudentDictionary {
 		int mainMenuChoice = 0;
 		int studentChoice = 0;
 		int subMenuChoice = 0;
-		
+
 		boolean loopStudentMenu = true;
 		boolean loopSubMenu = true;
 
@@ -31,7 +31,7 @@ public class StudentDictionary {
 			// Choice: Learn More About Students!
 			do {
 				// Display Student Menu
-				System.out.println("Which student would you like to learn about?");
+				System.out.println("\nWhich student would you like to learn about?");
 				printOptions(students);
 				studentChoice = getValidMenuChoice(scnr, students.length);
 
@@ -45,8 +45,7 @@ public class StudentDictionary {
 					if (subMenuChoice == 1) {
 						// Choice: Go back to Student Menu
 						break;
-					}
-					else if (subMenuChoice == 2) {
+					} else if (subMenuChoice == 2) {
 						// Choice: Reveal Student's Favorite Food
 						System.out.println(students[studentChoice - 1] + "'s favorite food is: "
 								+ favoriteFoods[studentChoice - 1] + "!");
@@ -58,11 +57,12 @@ public class StudentDictionary {
 						// Choice: Quit the Program
 						loopSubMenu = false;
 						loopStudentMenu = false;
-						break;	/* break out of this student menu loop */
+						break; /* break out of this student menu loop */
 					}
 
 					System.out
-							.println("Would you like to know more about " + students[studentChoice - 1] + "? (Y/n): ");
+							.println("\nWould you like to know more about " + students[studentChoice - 1] + "? (Y/n)");
+					System.out.println("Choose 'n' to see other students...");
 					if (scnr.nextLine().trim().toLowerCase().equals("n")) {
 						loopSubMenu = false;
 					}
@@ -72,7 +72,7 @@ public class StudentDictionary {
 			} while (loopStudentMenu);
 
 		}
-		
+
 		System.out.println("\nOk! Goodbye!");
 
 		scnr.close();
